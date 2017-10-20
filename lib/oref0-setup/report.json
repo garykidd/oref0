@@ -1,4 +1,28 @@
 [
+ {
+    "type": "report",
+    "settings/temptargets.json": {
+      "oper": "temp_targets",
+      "use": "shell",
+      "reporter": "JSON",
+      "device": "ns",
+      "remainder": "-18hours",
+      "json_default": "True"
+    },
+    "name": "settings/temptargets.json"
+  },
+ {
+    "type": "report",
+    "monitor/carbhistory.json": {
+      "oper": "carb_history",
+      "use": "shell",
+      "reporter": "JSON",
+      "device": "ns",
+      "remainder": "-36hours",
+      "json_default": "True"
+    },
+    "name": "monitor/carbhistory.json"
+  },
   {
     "type": "report",
     "name": "monitor/cgm-glucose.json",
@@ -15,7 +39,6 @@
     "raw-cgm/raw-entries.json": {
       "count": "",
       "use": "oref0_glucose",
-      "no_raw": "False",
       "reporter": "JSON",
       "seconds": "",
       "minutes": "",
@@ -136,7 +159,7 @@
     "type": "report",
     "name": "monitor/pumphistory.json",
     "monitor/pumphistory.json": {
-      "hours": "5.0",
+      "hours": "2.0",
       "device": "pump",
       "use": "iter_pump_hours",
       "reporter": "JSON"
@@ -189,9 +212,9 @@
       "clock": "monitor/clock-zoned.json",
       "reporter": "text",
       "json_default": "True",
-      "pumphistory": "monitor/pumphistory-zoned.json",
+      "pumphistory": "monitor/pumphistory-merged.json",
       "device": "iob",
-      "remainder": ""
+      "remainder": "settings/autosens.json"
     }
   },
   {
@@ -204,7 +227,7 @@
       "reporter": "text",
       "json_default": "True",
       "use": "shell",
-      "pumphistory": "monitor/pumphistory-zoned.json",
+      "pumphistory": "monitor/pumphistory-merged.json",
       "carbs": "monitor/carbhistory.json",
       "device": "meal",
       "remainder": "",
@@ -221,7 +244,7 @@
       "json_default": "True",
       "pumphistory": "settings/pumphistory-24h-zoned.json",
       "device": "detect-sensitivity",
-      "remainder": "",
+      "remainder": "monitor/carbhistory.json settings/temptargets.json",
       "isf": "settings/insulin_sensitivities.json",
       "glucose": "monitor/glucose.json"
     },
@@ -287,7 +310,7 @@
       "json_default": "True",
       "carb_ratios": "settings/carb_ratios.json",
       "device": "get-profile",
-      "remainder": "settings/temptargets.json",
+      "remainder": "settings/temptargets.json --model=settings/model.json",
       "isf": "settings/insulin_sensitivities.json"
     },
     "type": "report",
@@ -355,5 +378,16 @@
     },
     "type": "report",
     "name": "settings/insulin_sensitivities_raw.json"
+  },
+  {
+    "type": "report",
+    "name": "xdrip/glucose.json",
+    "xdrip/glucose.json": {
+        "device": "xdrip",
+        "remainder": "",
+        "use": "shell",
+	    "json_default": "True",
+        "reporter": "text"
+    }
   }
 ]
